@@ -18,15 +18,6 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Update version in setup.py
-        run: |
-          # Read the current version from setup.py
-          current_version=$(grep -oP "version='\K[^']+" setup.py)
-          # Increment the last digit of the version
-          new_version=$(echo $current_version | awk -F. '{$NF = $NF + 1;} 1' OFS=.)
-          # Replace the version in setup.py with the new version
-          sed -i "s/version='$current_version'/version='$new_version'/" setup.py
-
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@v1.8.14
         with:

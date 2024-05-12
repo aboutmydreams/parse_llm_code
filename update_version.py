@@ -1,5 +1,19 @@
 import re
 
+"""
+
+1. vim .git/hooks/pre-commit 输入：
+#!/bin/bash
+# 在 commit 之前运行 update_version.py 脚本
+python3 update_version.py
+# 继续执行提交
+git add -A
+
+2. 确保该脚本具有执行权限
+chmod +x .git/hooks/pre-commit
+
+"""
+
 
 def increment_version_string(version_string):
     parts = version_string.split(".")
