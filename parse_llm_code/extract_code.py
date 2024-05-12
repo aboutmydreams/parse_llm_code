@@ -27,6 +27,7 @@ class CodeBlocks:
     def __init__(self, code_list: List[CodeBlock]):
         self.length: int = len(code_list)
         self.code_list: List[CodeBlock] = code_list
+        self.first: CodeBlock = code_list[0] if len(code_list) > 0 else None
         self.code_dict_list: List = [
             {
                 "language": code.language,
@@ -49,3 +50,14 @@ def extract_code_blocks(md_string) -> CodeBlocks:
         context = match[1]
         code_blocks.append(CodeBlock(language, context))
     return CodeBlocks(code_blocks)
+
+
+def extract_first_code(md_string) -> CodeBlock:
+    code_blocks = []
+    pattern = r"```(\w+)\n(.*?)\n```"
+    matches = re.findall(pattern, md_string, re.DOTALL)
+    for match in matches:
+        language = match[0]
+        context = match[1]
+        code_blocks.append(CodeBlock(language, context))
+    return CodeBlocks(code_blocks).first

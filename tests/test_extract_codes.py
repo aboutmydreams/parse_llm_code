@@ -1,4 +1,4 @@
-from parse_llm_code.extract_code import extract_code_blocks
+from parse_llm_code import extract_code_blocks
 
 import unittest
 
@@ -22,21 +22,20 @@ class TestExtractCode(unittest.TestCase):
     def test_language(self):
         result = extract_code_blocks(test_string)
         self.assertEqual(
-            result.codes[0].language,
+            result.code_list[0].language,
             "python",
-            f"language test case failed: {result.codes[0].language} != 'python' ",
+            f"language test case failed: {result.code_list[0].language} != 'python' ",
         )
         self.assertEqual(
-            result.codes[1].language,
+            result.code_list[1].language,
             "typescript",
-            f"language test case failed: {result.codes[1].language} != 'typescript' ",
+            f"language test case failed: {result.code_list[1].language} != 'typescript' ",
         )
 
     def test_blocks_dic_list(self):
         result = extract_code_blocks(test_string)
-        print(result.dict)
         self.assertEqual(
-            result.length,
+            result.code_dict_list,
             [
                 {
                     "language": "python",
