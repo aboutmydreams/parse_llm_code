@@ -8,7 +8,7 @@ This library serves the purpose of parsing code snippets from text, particularly
 
 ```python
 
-from parse_llm_code.extract_code import extract_first_code
+from parse_llm_code import extract_first_code
 
 test_string = """
 this is llm answer example:
@@ -36,17 +36,21 @@ Output
 
 ```python
 python
+
 print('first line')
 print('second line')
+
 40
+
 2
+
 {'language': 'python', 'context': "print('first line')\nprint('second line')", 'length': 40, 'lines': 2, 'include_try': False, 'include_return': False}
 ```
 
 ### Extract multi code blocks
 
 ```python
-from parse_llm_code.extract_code import extract_code_blocks
+from parse_llm_code import extract_code_blocks
 
 test_string = """
 this is llm answer example:
@@ -72,6 +76,9 @@ Output
 
 ```python
 2
+
+[<parse_llm_code.extract_code.CodeBlock object at 0x1049edac0>, <parse_llm_code.extract_code.CodeBlock object at 0x1049edfd0>]
+
 [
     {
         "language": "python",
@@ -92,6 +99,6 @@ Output
 ]
 ```
 
-## run test
+## Run test
 
 `python3 -m unittest discover -s tests`
