@@ -1,0 +1,43 @@
+name: Auto Publish to PyPI and GitHub Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-version-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+
+      - name: Update version in setup.py
+        run: |
+          # Read the current version from setup.py
+          current_version=$(grep -oP "version='\K[^']+" setup.py)
+          # Increment the last digit of the version
+          new_version=$(echo $current_version | awk -F. '{$NF = $NF + 1;} 1' OFS=.)
+          # Replace the version in setup.py with the new version
+          sed -i "s/version='$current_version'/version='$new_version'/" setup.py
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@v1.8.14
+        with:
+          repository-url: https://upload.pypi.org/legacy/
+          packages-dir: dist/
+          env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/*
+          token: ${{ secrets.GITHUB_TOKEN }}
