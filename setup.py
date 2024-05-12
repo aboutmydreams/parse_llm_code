@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="parse_llm_code",
-    version="0.1.11",
+    version="0.1.12",
     author="aboutmydreams",
     author_email="aboutmydreams@163.com",
     description="a lib to parse llm answer to code",
