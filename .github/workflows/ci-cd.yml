@@ -17,10 +17,9 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: "3.x"
-          run: python3 setup.py sdist bdist_wheel
-
-      - name: List contents of dist directory
-        run: ls -l dist/
+          run: |
+            python3 setup.py sdist bdist_wheel
+            ls
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@v1.8.14
