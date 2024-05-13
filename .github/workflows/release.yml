@@ -40,8 +40,23 @@ jobs:
           packages-dir: dist/
           password: ${{ secrets.PYPI_API_TOKEN }}
 
+      - name: Extract version from setup.py
+        id: extract_version
+        run: echo "::set-output name=version::$(sed -n 's/.*version="\([^"]*\)".*/\1/p' setup.py)"
+        shell: bash
+
+      - name: Create Git Tag
+        if: success()
+        run: git tag ${{ steps.extract_version.outputs.version }}
+
+      - name: Push Git Tag
+        if: success()
+        run: git push origin ${{ steps.extract_version.outputs.version }}
+
       - name: Create GitHub Release
+        if: success()
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: ${{ steps.extract_version.outputs.version }}
           files: dist/*
           token: ${{ secrets.GITHUB_TOKEN }}
