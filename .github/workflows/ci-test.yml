@@ -1,4 +1,4 @@
-name: Auto CI and Build Tools
+name: Auto CI and Build Test
 
 on:
   pull_request:
@@ -7,7 +7,7 @@ on:
       - main
 
 jobs:
-  update-version-and-publish:
+  auto-ci-build-test:
     runs-on: ubuntu-latest
 
     steps:

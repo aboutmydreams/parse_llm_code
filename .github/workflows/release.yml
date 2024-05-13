@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "parse_llm_code/**"
+      - ".github/workflows/**"
+      - "tests/**"
+      - "setup.py"
 
 jobs:
   update-version-and-publish:
