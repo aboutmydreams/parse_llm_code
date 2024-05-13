@@ -8,6 +8,11 @@ on:
 jobs:
   update-version-and-publish:
     runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: hhttps://pypi.org/p/parse_llm_code
+    permissions:
+      id-token: write # IMPORTANT: this permission is mandatory for trusted publishing
 
     steps:
       - name: Checkout code
@@ -31,7 +36,7 @@ jobs:
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@v1.8.14
         with:
-          repository-url: https://pypi.org/p/parse_llm_code/
+          repository-url: https://test.pypi.org/legacy/
           packages-dir: dist/
           password: ${{ secrets.PYPI_API_TOKEN }}
 

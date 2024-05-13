@@ -1,4 +1,4 @@
-name: Auto Publish to PyPI and GitHub Release
+name: Auto CI and Build Tools
 
 on:
   pull_request:
