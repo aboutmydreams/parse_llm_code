@@ -31,7 +31,7 @@ jobs:
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@v1.8.14
         with:
-          repository-url: https://pypi.org/p/parse_llm_code
+          repository-url: https://pypi.org/p/parse_llm_code/
           packages-dir: dist/
           password: ${{ secrets.PYPI_API_TOKEN }}
 
