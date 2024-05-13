@@ -51,7 +51,13 @@ jobs:
 
       - name: Push Git Tag
         if: success()
-        run: git push origin ${{ steps.extract_version.outputs.version }}
+        env:
+          GH_TOKEN: ${{ secrets.RESP_GITHUB_TOKEN }}
+        run: |
+          git config --local user.email "github-actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git tag ${{ steps.extract_version.outputs.version }}
+          git push origin ${{ steps.extract_version.outputs.version }}
 
       - name: Create GitHub Release
         if: success()
@@ -59,4 +65,4 @@ jobs:
         with:
           tag_name: ${{ steps.extract_version.outputs.version }}
           files: dist/*
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.RESP_GITHUB_TOKEN }}
